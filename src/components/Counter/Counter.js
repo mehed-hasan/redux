@@ -11,29 +11,56 @@ function Counter({data}) {
     const [item, setItem] = useState(0);
     const [cartedData, setCartedData] = useState([]);
     
-    const getData = JSON.parse(localStorage.getItem('carted'));
 
     useEffect(() =>{
-        if(getData == null){
-            setCartedData([])
-        }else{
-            setCartedData(getData)
-        }
-    },[])
+        // console.log(cartedData);
 
-    console.log(cartedData);
+    },[data])
+
 
     const add = (id) =>{
         //Adding to local
         setItem(item +1);
         dispatch(increment());
 
-        console.log(getData.length);
+        if(cartedData.length > 0){
+            let row = 0; 
+            cartedData.map((item)=>
+               {
+                if(item.id ==1){
+                    row +=1;
+                }
+               }
+            )
+              
+            if(row > 0){
+                // Do not enter                 
+            }else{
+                // Enter data 
+                const newData = {
+                    id:5,
+                    test:'s' 
+                }
+                // localStorage.setItem('carted', JSON.stringify([...cartedData,newData ]))
+                setCartedData([...cartedData,newData ])
+            }
+        }else{
+             // Enter data  
+             const newData = {
+                id:5,
+                test:'s'
+            }
+            // localStorage.setItem('carted', JSON.stringify([...cartedData,newData ]))
+            setCartedData([...cartedData,newData])
+        }
+
+    
     }
     const sub = (id) =>{
         setItem(item -1);
         dispatch(decrement());
     }
+    console.log(cartedData);
 
     return ( 
         <>
